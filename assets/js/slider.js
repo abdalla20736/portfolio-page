@@ -3,15 +3,18 @@ const prevBtn = document.getElementById("prev-testimonial");
 const carousel = document.getElementById("testimonials-carousel");
 const slides = document.querySelectorAll(".testimonial-card");
 const indicators = document.querySelectorAll(".carousel-indicator");
+
 let currentTranslateX = 0;
 let lastActiveIndicator = indicators[0];
 IndicatorActiveTestimonial(lastActiveIndicator);
+
 function ShowNextTestimonial() {
-  currentTranslateX -= 33.33;
-  if (currentTranslateX < 0) {
-    currentTranslateX = 99.99;
+  currentTranslateX += 33.33;
+  if (currentTranslateX > (slides.length - 3) * 33.33) {
+    currentTranslateX = 0;
   }
   carousel.style.setProperty("transform", `translateX(${currentTranslateX}%)`);
+  IndicatorActiveTestimonial(indicators[currentTranslateX / 33.33]);
 }
 
 function PrevNextTestimonial() {
@@ -21,6 +24,7 @@ function PrevNextTestimonial() {
     currentTranslateX = 99.99;
   }
   carousel.style.setProperty("transform", `translateX(${currentTranslateX}%)`);
+  IndicatorActiveTestimonial(indicators[currentTranslateX / 33.33]);
 }
 
 function IndicatorActiveTestimonial(indicator) {
