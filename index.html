@@ -2603,7 +2603,7 @@
                     </a>
                     <a
                       href="#"
-                      class="w-14 h-14 bg-slate-200 dark:bg-slate-800 rounded-xl flex items-center justify-center hover:bg-primary transition-all duration-300 transform hover:scale-110 group"
+                      class="w-14 h-14 bg-slate-200 dark:bg-slate-800 rounded-xl flex items-center justify-center hover:bg-primary transition-all duration-300 trans hover:scale-110 group"
                       aria-label="Dribbble"
                     >
                       <i
@@ -2639,10 +2639,11 @@
                     id="full-name"
                     name="full-name"
                     autocomplete="name"
-                    required
                     class="w-full bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl px-6 py-4 text-slate-800 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-primary transition-colors"
                     placeholder="أدخل اسمك الكامل"
                   />
+                  <span class="validation-output text-sm text-red-400 hidden">
+                  </span>
                 </div>
                 <div>
                   <label for="email" class="block text-lg font-medium mb-2"
@@ -2653,10 +2654,11 @@
                     id="email"
                     name="email"
                     autocomplete="email"
-                    required
                     class="w-full bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl px-6 py-4 text-slate-800 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-primary transition-colors"
                     placeholder="example@email.com"
                   />
+                  <span class="validation-output text-sm text-red-400 hidden">
+                  </span>
                 </div>
                 <div>
                   <label for="phone" class="block text-lg font-medium mb-2"
@@ -2670,6 +2672,8 @@
                     class="w-full bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl px-6 py-4 text-slate-800 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-primary transition-colors"
                     placeholder="+20 10 XXXX XXXX"
                   />
+                  <span class="validation-output text-sm text-red-400 hidden">
+                  </span>
                 </div>
                 <div>
                   <label
@@ -2810,10 +2814,11 @@
                     id="project-details"
                     name="project-details"
                     rows="5"
-                    required
                     class="w-full bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl px-6 py-4 text-slate-800 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-primary transition-colors resize-none"
                     placeholder="احكيلي تفاصيل مشروعك..."
                   ></textarea>
+                  <span class="validation-output text-sm text-red-400 hidden">
+                  </span>
                 </div>
                 <button
                   type="submit"

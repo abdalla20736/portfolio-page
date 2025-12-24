@@ -1,3 +1,4 @@
+import { RegisterMultiEvents } from "./utils.js";
 const nextBtn = document.getElementById("next-testimonial");
 const prevBtn = document.getElementById("prev-testimonial");
 const carousel = document.getElementById("testimonials-carousel");
@@ -41,6 +42,14 @@ function IndicatorActiveTestimonial(indicator) {
   carousel.style.setProperty("transform", `translateX(${index * 33.33}%)`);
 }
 
+function RegisterEvents() {
+  nextBtn.addEventListener("click", ShowNextTestimonial);
+  prevBtn.addEventListener("click", PrevNextTestimonial);
+  RegisterMultiEvents(indicators, "click", (e) =>
+    IndicatorActiveTestimonial(e.target)
+  );
+}
+
 const slider = {
   nextBtn,
   prevBtn,
@@ -48,6 +57,7 @@ const slider = {
   ShowNextTestimonial,
   PrevNextTestimonial,
   IndicatorActiveTestimonial,
+  RegisterEvents,
 };
 
 export default slider;
