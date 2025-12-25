@@ -1,3 +1,4 @@
+import { ToggleActiveButton, RegisterMultiEvents } from "./utils.js";
 const portfolioContainer = document.getElementById("portfolio-filters");
 const portfolioFilters = document.querySelectorAll(".portfolio-filter");
 const portfolioItems = document.querySelectorAll(".portfolio-item");
@@ -71,7 +72,7 @@ function HideAllProjects(items) {
 }
 
 function RegisterEvents() {
-  RegisterMultiEvents(portfolioFilter, "click", (e) =>
+  RegisterMultiEvents(portfolioFilters, "click", (e) =>
     ProjectsFilter(e.target)
   );
 }
