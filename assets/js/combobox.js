@@ -21,7 +21,7 @@ function ComboBox(e) {
 function comboboxOptionsSelect(e) {
   let combobox = e.target.closest(".custom-options").previousElementSibling;
   let comboboxText = combobox.querySelector("span");
-  comboboxText.innerText = e.target.innerText;
+  comboboxText.innerText = e.target.getAttribute("data-value");
   comboboxText.classList.replace("dark:text-slate-400", "dark:text-white");
   comboboxText.classList.replace("text-slate-500", "text-slate-800");
   combobox.nextElementSibling.classList.add("hidden");

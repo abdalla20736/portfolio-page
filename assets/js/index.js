@@ -71,6 +71,7 @@ function SetActiveNavLink() {
 function TogglePageMode() {
   var root = document.documentElement;
   root.classList.toggle("dark");
+  themeButton.setAttribute("aria-pressed", isDark);
   root.classList.contains("dark") ? storage.CacheThemeMode("dark") : null;
 }
 
