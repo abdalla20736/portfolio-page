@@ -1,4 +1,5 @@
 import { ToggleActiveButton, RegisterMultiEvents } from "./utils.js";
+import storage from "./storage.js";
 const root = document.documentElement;
 const pageBody = document.body;
 const settingGear = document.getElementById("settings-toggle");
@@ -10,46 +11,38 @@ const themeColorsGrid = document.getElementById("theme-colors-grid");
 let themesButtons = [];
 const resetSettings = document.getElementById("reset-settings");
 
-function OpenSettingsMenu() {
-  settingGear.style.right = "20rem";
-  settingMenu.classList.remove("translate-x-full");
+LoadThemesColors();
+function LoadCachedFont() {
+  const cachedFont = storage.LoadCachedFontData();
+  if (cachedFont) {
+    pageBody.classList.add(`font-${cachedFont}`);
+    fontButtons.forEach((button) => {
+      button.dataset.font === cachedFont ? SetFontActiveButton(button) : null;
+    });
+  }
 }
 
-function CloseSettingsMenu() {
-  settingGear.style.right = "0px";
-  settingMenu.classList.add("translate-x-full");
+function LoadCachedTheme() {
+  const colors = storage.LoadCachedColors();
+  if (colors) {
+    SetThemeColor(colors.primaryColor, colors.secondaryColor);
+
+    themesButtons.forEach((button) => {
+      button.dataset.primary === colors.primaryColor &&
+      button.dataset.secondary === colors.secondaryColor
+        ? SetActiveColorButton(button)
+        : null;
+    });
+  }
 }
 
-function SwitchFont(button) {
-  const classes = Array.from(pageBody.classList);
-
-  pageBody.classList.remove(
-    classes.filter((classname) => classname.startsWith("font-"))
-  );
-
-  ToggleActiveButton(fontMenu, ".font-option.active", [
-    "border-primary",
-    "bg-slate-50",
-    "dark:bg-slate-800",
-    "active",
-  ]);
-
-  button.classList.add(
-    "border-primary",
-    "bg-slate-50",
-    "dark:bg-slate-800",
-    "active"
-  );
-
-  pageBody.classList.add(`font-${button.dataset.font}`);
+function SetThemeColor(primary, secondary) {
+  root.style.setProperty("--color-primary", primary);
+  root.style.setProperty("--color-secondary", secondary);
 }
 
-function SwitchThemeColor(button) {
-  root.style.setProperty("--color-primary", `${button.dataset.primary}`);
-  root.style.setProperty("--color-secondary", `${button.dataset.secondary}`);
-
+function SetActiveColorButton(button) {
   var currentActive = themeColorsGrid.querySelector(".ring-primary");
-
   if (currentActive) {
     currentActive.classList.remove(
       "ring-2",
@@ -67,6 +60,54 @@ function SwitchThemeColor(button) {
     "ring-offset-white",
     "dark:ring-offset-slate-900"
   );
+}
+function OpenSettingsMenu() {
+  settingGear.style.right = "20rem";
+  settingMenu.classList.remove("translate-x-full");
+}
+
+function CloseSettingsMenu() {
+  settingGear.style.right = "0px";
+  settingMenu.classList.add("translate-x-full");
+}
+
+function SwitchFont(button) {
+  const classes = Array.from(pageBody.classList);
+
+  pageBody.classList.remove(
+    classes.filter((classname) => classname.startsWith("font-"))
+  );
+
+  SetFontActiveButton(button);
+
+  pageBody.classList.add(`font-${button.dataset.font}`);
+  storage.CacheFont(`${button.dataset.font}`);
+}
+
+function SetFontActiveButton(button) {
+  ToggleActiveButton(fontMenu, ".font-option.active", [
+    "border-primary",
+    "bg-slate-50",
+    "dark:bg-slate-800",
+    "active",
+  ]);
+
+  button.classList.add(
+    "border-primary",
+    "bg-slate-50",
+    "dark:bg-slate-800",
+    "active"
+  );
+}
+
+function SwitchThemeColor(button) {
+  const primaryColor = button.dataset.primary;
+  const secondaryColor = button.dataset.secondary;
+
+  SetThemeColor(primaryColor, secondaryColor);
+  SetActiveColorButton(button);
+
+  storage.CacheColors(primaryColor, secondaryColor);
 }
 
 function LoadThemesColors() {
@@ -146,6 +187,8 @@ const sidebar = {
   SwitchFont,
   SwitchThemeColor,
   LoadThemesColors,
+  LoadCachedTheme,
+  LoadCachedFont,
   ResetFactory,
   RegisterEvents,
 };
