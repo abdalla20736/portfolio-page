@@ -43,21 +43,24 @@ function ProjectsFilter(button) {
     "dark:border-slate-700"
   );
 
-  HideAllProjects(portfolioItems);
-
   const filter = button.dataset.filter;
   DisplayProjects(filter);
 }
-function DisplayProjects(filter) {
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+async function DisplayProjects(filter) {
   HideAllProjects(portfolioItems);
-  setTimeout(() => {
-    portfolioItems.forEach((item) => {
-      if (filter === "all" || item.dataset.category === filter) {
-        item.classList.remove("is-hidden");
-        item.classList.remove("is-hiding");
-      }
-    });
-  }, 500);
+
+  portfolioItems.forEach(async (item) => {
+    if (filter === "all" || item.dataset.category === filter) {
+      await sleep(500);
+      item.classList.remove("is-hidden");
+      await sleep(500);
+      item.classList.remove("is-hiding");
+    }
+  });
 }
 
 function HideAllProjects(items) {
@@ -66,7 +69,6 @@ function HideAllProjects(items) {
 
     setTimeout(() => {
       item.classList.add("is-hidden");
-      item.classList.remove("is-hiding");
     }, 500);
   });
 }
